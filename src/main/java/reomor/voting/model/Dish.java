@@ -1,6 +1,6 @@
 package reomor.voting.model;
 
-public class Dish {
+public class Dish extends BaseEntity {
     private String description;
     private Integer price;
 

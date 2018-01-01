@@ -1,14 +1,21 @@
 package reomor.voting.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
-public class User extends DatabaseEntity {
+//@Entity
+//@Table(name = "USERS")
+public class User extends BaseEntity {
+    //@NotBlank
+    //@Size(min = 1, max = 100)
+    //@Column(name = "NAME", nullable = false)
     private String name;
+
     private String email;
+    private String password;
     private Set<Roles> roles;
-    private Restaurant restaurant;
-    private LocalDateTime restaurantChoiceDateTime;
+    private Date registered = new Date();
+    private boolean enabled;
 
     User(int id, String name, String email, Set<Roles> roles) {
         super(id);
@@ -41,19 +48,16 @@ public class User extends DatabaseEntity {
         this.roles = roles;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public LocalDateTime getRestaurantChoiceDateTime() {
-        return restaurantChoiceDateTime;
-    }
-
-    public void setRestaurantChoiceDateTime(LocalDateTime restaurantChoiceDateTime) {
-        this.restaurantChoiceDateTime = restaurantChoiceDateTime;
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", registered=" + registered +
+                ", enabled=" + enabled +
+                '}';
     }
 }

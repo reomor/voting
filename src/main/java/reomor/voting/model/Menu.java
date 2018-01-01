@@ -1,4 +1,8 @@
 package reomor.voting.model;
 
-public class Menu {
+import java.time.LocalDate;
+
+public class Menu extends BaseEntity {
+    Restaurant restaurant;
+    LocalDate date;
 }

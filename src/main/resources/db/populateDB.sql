@@ -13,6 +13,7 @@ INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER_REGULAR', 1000),
   ('ROLE_USER_REGULAR', 1001),
   ('ROLE_ADMIN', 1001);
+
 -- starts from 100
 INSERT INTO restaurant (NAME) VALUES
   ('MacDonalds'),

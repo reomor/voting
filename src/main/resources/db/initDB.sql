@@ -40,6 +40,7 @@ CREATE TABLE menus
 
 CREATE TABLE dishes
 (
+  id                INTEGER                     IDENTITY PRIMARY KEY,
   menu_id           INTEGER                     NOT NULL,
   dish_name         VARCHAR(255)                NOT NULL,
   price             INTEGER                     NOT NULL,
@@ -48,6 +49,7 @@ CREATE TABLE dishes
 
 CREATE TABLE votes
 (
+  id                INTEGER                     IDENTITY PRIMARY KEY,
   user_id          INTEGER      NOT NULL,
   restaurant_id    INTEGER      NOT NULL,
   date_time        TIMESTAMP    NOT NULL,
