@@ -20,12 +20,18 @@ public class BaseEntity implements Persistable<Integer> {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public boolean isNew() {
         return this.id == null;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return String.format("Entity %s (%s)", getClass().getName(), id);
     }
+
 }

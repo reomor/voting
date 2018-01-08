@@ -49,10 +49,10 @@ CREATE TABLE dishes
 
 CREATE TABLE votes
 (
-  id                INTEGER                     IDENTITY PRIMARY KEY,
-  user_id          INTEGER      NOT NULL,
-  restaurant_id    INTEGER      NOT NULL,
-  date_time        TIMESTAMP    NOT NULL,
+  id               INTEGER                      IDENTITY PRIMARY KEY,
+  user_id          INTEGER                      NOT NULL,
+  restaurant_id    INTEGER                      NOT NULL,
+  date_time        TIMESTAMP DEFAULT now()      NOT NULL,
   FOREIGN KEY (user_id) REFERENCES USERS (id) ON DELETE CASCADE,
   FOREIGN KEY (restaurant_id) REFERENCES RESTAURANT (id) ON DELETE CASCADE
 );

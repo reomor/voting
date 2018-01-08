@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface VoteRepository {
-    Vote save(Vote vote, LocalDateTime dateTime);
+    Vote make(Vote vote, LocalDateTime dateTime);
 
     boolean delete(int id);
 
