@@ -7,17 +7,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RestaurantRepository {
-    Restaurant save(Restaurant restaurant);
+    Restaurant add(Restaurant restaurant);
 
     boolean delete(int id);
 
     Restaurant get(int id);
 
-    Menu saveMenu(Menu menu);
+    Menu addMenu(Menu menu);
 
     boolean deleteMenu(int menuId);
 
     Menu getMenu(int menuId, LocalDate date);
 
-    List<Restaurant> getAll(LocalDate date);
+    List<Menu> getAllMenusByDate(LocalDate date);
 }

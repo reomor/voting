@@ -26,4 +26,28 @@ public class Menu extends BaseEntity {
     @GenericGenerator(name = "gen", strategy = "auto")
     @CollectionId(columns = {@Column(name = "ID")}, generator = "gen", type = @Type(type = "int"))
     private List<Dish> dishes;
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
 }

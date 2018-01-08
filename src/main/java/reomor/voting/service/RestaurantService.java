@@ -1,26 +1,32 @@
 package reomor.voting.service;
 
 import reomor.voting.model.Dish;
+import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
 import reomor.voting.to.RestaurantWithMenu;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public interface RestaurantService {
     // Restaurant
-    void add(Restaurant restaurant);
+    Restaurant add(Restaurant restaurant);
 
-    void get(int id);
+    void update(Restaurant restaurant, int restaurantId);
 
-    void update(Restaurant restaurant, int id);
+    Restaurant get(int restaurantId);
 
-    void delete(int id);
+    boolean delete(int restaurantId);
 
     // Menu
-    void saveMenu(int id, List<Dish> menu);
+    Menu addMenu(Menu menu);
 
-    void getMenu(int id);
+    Menu updateMenu(Menu menu);
 
-    //List<RestaurantWithMenu> getAllRestaurantWithMenus(Date date);
+    boolean deleteMenu(int menuId);
+
+    Menu getMenu(int menuId, LocalDate date);
+
+    List<Menu> getAllMenusByDate(LocalDate date);
 }
