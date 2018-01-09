@@ -1,5 +1,6 @@
 package reomor.voting.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -23,9 +24,11 @@ public class Menu extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "RESTAURANT_ID")
     @NotNull
+    @BatchSize(size = 100)
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
     private List<Dish> dishes;
 
     public Menu() {}

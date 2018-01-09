@@ -26,14 +26,18 @@ INSERT INTO restaurant (NAME) VALUES
 
 INSERT INTO menus (RESTAURANT_ID, DATE_TIME) VALUES
   (100, '2017-12-03'),
-  (101, '2017-12-03');
+  (101, '2017-12-03'),
+  (100, '2017-12-04'),
+  (101, '2017-12-15');
 
 INSERT INTO dishes (MENU_ID, DISH_NAME, PRICE) VALUES
   (0, 'burger', 17900),
   (0, 'fri', 7500),
   (0, 'naggets', 10500),
   (1, 'burger', 24000),
-  (1, 'milk', 7900);
+  (1, 'milk', 7900),
+  (2, 'coffee', 9000),
+  (3, 'steak', 25000);
 
 INSERT INTO votes (USER_ID, RESTAURANT_ID, DATE_TIME) VALUES
   (1000, 100, '2017-12-03 10:00:00'),

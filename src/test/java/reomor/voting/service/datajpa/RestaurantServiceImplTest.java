@@ -9,10 +9,9 @@ import reomor.voting.service.RestaurantService;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
-import static reomor.voting.service.RestaurantTestData.assertMatch;
-import static reomor.voting.service.RestaurantTestData.menu0;
-import static reomor.voting.service.RestaurantTestData.restaurant101;
+import static reomor.voting.service.RestaurantTestData.*;
 
 public class RestaurantServiceImplTest extends AbstractServiceTest {
     @Autowired
@@ -28,5 +27,11 @@ public class RestaurantServiceImplTest extends AbstractServiceTest {
     public void getMenuTest() throws Exception {
         Menu actual = service.getMenu(0, LocalDate.of(2017, Month.DECEMBER, 3));
         assertMatch(actual, menu0);
+    }
+
+    @Test
+    public void getAllMenusByDateTest() throws Exception {
+        final List<Menu> actual = service.getAllMenusByDate(LocalDate.of(2017, Month.DECEMBER, 3));
+        assertMatch(actual, menu0, menu1);
     }
 }
