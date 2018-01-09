@@ -51,7 +51,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public boolean deleteMenu(int menuId) {
-        return repository.delete(menuId);
+        return repository.deleteMenu(menuId);
     }
 
     @Override
