@@ -6,13 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-@Embeddable
+@Entity
 @Table(name = "DISHES")
-public class Dish {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
-
+public class Dish extends BaseEntity {
     @Column(name = "DISH_NAME")
     @NotBlank
     @Size(max = 100)
@@ -22,9 +18,14 @@ public class Dish {
     @Range(min = 0, max = 10000)
     private Integer price;
 
+    @ManyToOne
+    @JoinColumn(name = "MENU_ID")
+    private Menu menu;
+
     public Dish() {}
 
-    public Dish(String description, Integer price) {
+    public Dish(int id, String description, Integer price) {
+        super(id);
         this.description = description;
         this.price = price;
     }

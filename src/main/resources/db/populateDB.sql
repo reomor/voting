@@ -1,5 +1,9 @@
-DELETE FROM votes;
-DELETE FROM menus;
+-- https://stackoverflow.com/questions/4990410/how-can-i-wipe-data-from-my-hsqldb-after-every-test
+TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK;
+
+DELETE FROM VOTES;
+DELETE FROM DISHES;
+DELETE FROM MENUS;
 DELETE FROM restaurant;
 DELETE FROM user_roles;
 DELETE FROM users;
@@ -9,10 +13,10 @@ INSERT INTO users (name, email, password) VALUES
   ('User', 'user@yandex.ru', 'password'),
   ('Admin', 'admin@gmail.com', 'admin');
 
-INSERT INTO user_roles (role, user_id) VALUES
-  ('ROLE_USER_REGULAR', 1000),
-  ('ROLE_USER_REGULAR', 1001),
-  ('ROLE_ADMIN', 1001);
+INSERT INTO user_roles (user_id, role) VALUES
+  (1000, 'ROLE_USER'),
+  (1001, 'ROLE_USER'),
+  (1001, 'ROLE_ADMIN');
 
 -- starts from 100
 INSERT INTO restaurant (NAME) VALUES

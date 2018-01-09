@@ -1,12 +1,16 @@
 package reomor.voting.model;
 
-import org.hibernate.annotations.*;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -21,11 +25,17 @@ public class Menu extends BaseEntity {
     @NotNull
     private Restaurant restaurant;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name = "DISHES", joinColumns = @JoinColumn(name = "MENU_ID"))
-    @GenericGenerator(name = "gen", strategy = "auto")
-    @CollectionId(columns = {@Column(name = "ID")}, generator = "gen", type = @Type(type = "int"))
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Dish> dishes;
+
+    public Menu() {}
+
+    public Menu (int id, LocalDate date, Restaurant restaurant, Collection<Dish> dishes) {
+        super(id);
+        this.date = date;
+        this.restaurant = restaurant;
+        setDishes(dishes);
+    }
 
     public LocalDate getDate() {
         return date;
@@ -47,7 +57,7 @@ public class Menu extends BaseEntity {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+    public void setDishes(Collection<Dish> dishes) {
+        this.dishes = CollectionUtils.isEmpty(dishes) ? Collections.emptyList() : new ArrayList<Dish>(dishes);
     }
 }

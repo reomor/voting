@@ -14,6 +14,13 @@ public class Restaurant extends BaseEntity {
     @Size(max = 150)
     private String name;
 
+    public Restaurant() {}
+
+    public Restaurant(int id, String name) {
+        super(id);
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
