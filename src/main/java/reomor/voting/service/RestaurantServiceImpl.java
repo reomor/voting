@@ -12,12 +12,8 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private RestaurantRepository repository;
-
     @Autowired
-    public RestaurantServiceImpl(RestaurantRepository repository) {
-        this.repository = repository;
-    }
+    private RestaurantRepository repository;
 
     @Override
     public Restaurant add(Restaurant restaurant) {

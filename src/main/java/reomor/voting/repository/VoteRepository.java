@@ -2,14 +2,12 @@ package reomor.voting.repository;
 
 import reomor.voting.model.Vote;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface VoteRepository {
-    Vote make(Vote vote, LocalDateTime dateTime);
+    Vote make(LocalDateTime dateTime, int userId, int restaurantId);
 
-    boolean delete(int id);
+    boolean delete(LocalDateTime dateTime, int userId);
 
-    Vote get(int userId, LocalDate date);
+    Vote get(LocalDateTime dateTime, int userId);
 }

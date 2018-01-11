@@ -9,18 +9,17 @@ import java.time.LocalDateTime;
 public class Vote extends BaseEntity {
     @Column(name = "DATE_TIME")
     @NotNull
-    LocalDateTime dateTime;
+    private LocalDateTime dateTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", nullable = false)
-    User user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
-    Restaurant restaurant;
+    private Restaurant restaurant;
 
-    public Vote() {
-    }
+    public Vote() {}
 
     Vote(int id) {
         super(id);
