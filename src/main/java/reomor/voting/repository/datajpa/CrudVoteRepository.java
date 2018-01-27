@@ -10,6 +10,7 @@ import reomor.voting.model.Vote;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Transactional(readOnly = true)
 public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     @Override
     Vote save(Vote vote);

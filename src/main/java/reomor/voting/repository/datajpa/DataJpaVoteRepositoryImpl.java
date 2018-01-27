@@ -23,9 +23,7 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     //meal.setUser(crudUserRepository.getOne(userId));
 
     @Override
-    public Vote make(LocalDateTime dateTime, int userId, int restaurantId) {
-        Vote vote = new Vote();
-        vote.setDateTime(dateTime);
+    public Vote make(Vote vote, int userId, int restaurantId) {
         vote.setUser(crudUserRepository.getOne(userId));
         vote.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         return crudVoteRepository.save(vote);

@@ -15,16 +15,16 @@ public interface RestaurantService {
 
     void update(Restaurant restaurant, int restaurantId);
 
-    Restaurant get(int restaurantId);
+    void delete(int restaurantId);
 
-    boolean delete(int restaurantId);
+    Restaurant get(int restaurantId);
 
     // Menu
     Menu addMenu(Menu menu);
 
-    Menu updateMenu(Menu menu);
+    void updateMenu(Menu menu, int menuId);
 
-    boolean deleteMenu(int menuId);
+    void deleteMenu(int menuId);
 
     Menu getMenu(int menuId, LocalDate date);
 

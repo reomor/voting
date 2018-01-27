@@ -10,6 +10,7 @@ import reomor.voting.model.User;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying

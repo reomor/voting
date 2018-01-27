@@ -5,7 +5,7 @@ import reomor.voting.model.Vote;
 import java.time.LocalDateTime;
 
 public interface VoteRepository {
-    Vote make(LocalDateTime dateTime, int userId, int restaurantId);
+    Vote make(Vote vote, int userId, int restaurantId);
 
     boolean delete(LocalDateTime dateTime, int userId);
 

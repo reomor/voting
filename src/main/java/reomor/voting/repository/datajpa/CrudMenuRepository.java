@@ -10,6 +10,7 @@ import reomor.voting.model.Menu;
 import java.time.LocalDate;
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     @Override
     Menu save(Menu menu);
