@@ -1,4 +1,4 @@
-package reomor.voting.service;
+package reomor.voting;
 
 import reomor.voting.model.Dish;
 import reomor.voting.model.Menu;

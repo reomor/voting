@@ -11,9 +11,9 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-import static reomor.voting.service.RestaurantTestData.*;
+import static reomor.voting.RestaurantTestData.*;
 
-public class RestaurantServiceImplTest extends AbstractServiceTest {
+public class RestaurantServiceTest extends AbstractServiceTest {
     @Autowired
     private RestaurantService service;
 
@@ -32,6 +32,7 @@ public class RestaurantServiceImplTest extends AbstractServiceTest {
     @Test
     public void getAllMenusByDateTest() throws Exception {
         final List<Menu> actual = service.getAllMenusByDate(LocalDate.of(2017, Month.DECEMBER, 3));
-        assertMatch(actual, menu0, menu1);
+        //assertMatch(actual, menu0, menu1);
+        assertMatch(actual, menu1, menu0);
     }
 }
