@@ -10,7 +10,6 @@ import reomor.voting.repository.RestaurantRepository;
 import java.time.LocalDate;
 import java.util.List;
 
-import static reomor.voting.util.ValidationUtil.checkNotFound;
 import static reomor.voting.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -55,12 +54,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void deleteMenu(int menuId) {
-        repository.deleteMenu(menuId);
+        checkNotFoundWithId(repository.deleteMenu(menuId), menuId);
     }
 
     @Override
     public Menu getMenu(int menuId, LocalDate date) {
-        return repository.getMenu(menuId, date);
+        return checkNotFoundWithId(repository.getMenu(menuId, date), menuId);
     }
 
     @Override

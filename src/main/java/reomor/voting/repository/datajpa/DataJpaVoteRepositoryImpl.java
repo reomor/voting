@@ -20,11 +20,16 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
 
     @Autowired
     private CrudUserRepository crudUserRepository;
-    //meal.setUser(crudUserRepository.getOne(userId));
 
     @Override
     public Vote make(Vote vote, int userId, int restaurantId) {
+        if (!crudUserRepository.findById(userId).isPresent()) {
+            return null;
+        }
         vote.setUser(crudUserRepository.getOne(userId));
+        if (!crudRestaurantRepository.findById(restaurantId).isPresent()) {
+            return null;
+        }
         vote.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         return crudVoteRepository.save(vote);
     }

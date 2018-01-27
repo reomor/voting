@@ -48,4 +48,14 @@ public class Vote extends BaseEntity {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", user=" + user +
+                ", restaurant=" + restaurant +
+                '}';
+    }
 }
