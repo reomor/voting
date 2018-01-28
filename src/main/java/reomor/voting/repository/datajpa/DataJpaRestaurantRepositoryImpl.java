@@ -1,6 +1,7 @@
 package reomor.voting.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import reomor.voting.model.Menu;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Repository
 public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
+
+    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "name");
 
     @Autowired
     private CrudMenuRepository crudMenuRepository;
@@ -33,6 +36,11 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public Restaurant get(int id) {
         return crudRestaurantRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Restaurant> getAll() {
+        return crudRestaurantRepository.findAll(SORT_NAME);
     }
 
     @Override

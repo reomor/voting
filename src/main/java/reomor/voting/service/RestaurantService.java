@@ -19,6 +19,8 @@ public interface RestaurantService {
 
     Restaurant get(int restaurantId);
 
+    List<Restaurant> getAll();
+
     // Menu
     Menu addMenu(Menu menu);
 

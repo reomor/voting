@@ -12,6 +12,12 @@ public class RootController {
     @GetMapping("/")
     public String root() {
         log.info("start root page");
+        return "index";
+    }
+
+    @GetMapping("/menus")
+    public String meals() {
+        log.info("meals page");
         return "menus";
     }
 }

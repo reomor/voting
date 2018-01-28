@@ -36,6 +36,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public List<Restaurant> getAll() {
+        return repository.getAll();
+    }
+
+    @Override
     public void delete(int restaurantId) {
         checkNotFoundWithId(repository.delete(restaurantId), restaurantId);
     }

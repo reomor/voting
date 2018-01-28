@@ -1,14 +1,14 @@
 package reomor.voting.model;
 
 import org.hibernate.annotations.BatchSize;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL", name = "USERS_UNIQUE_EMAIL_IDX")})
@@ -41,15 +41,20 @@ public class User extends BaseEntity {
     @Column(name = "ROLE")
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 200)
-    private Set<Roles> roles;
+    private Set<Role> roles;
 
     public User() {}
 
-    User(int id, String name, String email, Set<Roles> roles) {
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
+    }
+
+    public User(Integer id, String name, String email, String password, Boolean enabled, Date registered, Collection<Role> roles) {
         super(id);
         this.name = name;
         this.email = email;
-        this.roles = roles;
+        this.password = password;
+        setRoles(roles);
     }
 
     public String getName() {
@@ -68,12 +73,12 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    public Set<Roles> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Roles> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     @Override

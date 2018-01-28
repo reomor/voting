@@ -21,6 +21,10 @@ public class Restaurant extends BaseEntity {
         this.name = name;
     }
 
+    public Restaurant(Restaurant restaurant) {
+        super(restaurant.id);
+        this.name = restaurant.name;
+    }
     public String getName() {
         return name;
     }
@@ -32,8 +36,8 @@ public class Restaurant extends BaseEntity {
     @Override
     public String toString() {
         return "Restaurant{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                '}';
+                "id=" + id +
+                ", name='" + name + "'" +
+                "}";
     }
 }
