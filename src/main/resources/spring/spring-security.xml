@@ -1,0 +1,16 @@
+<!--
+https://stackoverflow.com/questions/7347183/using-spring-security-how-can-i-use-http-methods-e-g-get-put-post-to-disti
+
+<http auto-config="true">
+    <intercept-url pattern="/login.jsp" access="permitAll" />
+    <intercept-url pattern="/**" access="isAuthenticated" />
+</http>
+Placing the more specific match on top.
+
+The last thing the quote says is about the HTTP method. You can use it to specify the match, so:
+
+<http auto-config="true">
+    <intercept-url pattern="/client/edit" access="isAuthenticated" method="GET" />
+    <intercept-url pattern="/client/edit" access="hasRole('EDITOR')" method="POST" />
+</http>
+-->

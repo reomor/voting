@@ -44,8 +44,11 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public Menu addMenu(Menu menu) {
-        return crudMenuRepository.save(menu);
+    @Transactional
+    public Menu addMenu(Menu menu, int restaurantId) {
+        Menu menuNew = new Menu(menu);
+        menuNew.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+        return crudMenuRepository.save(menuNew);
     }
 
     @Override

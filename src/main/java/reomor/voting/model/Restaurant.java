@@ -16,15 +16,16 @@ public class Restaurant extends BaseEntity {
 
     public Restaurant() {}
 
-    public Restaurant(int id, String name) {
-        super(id);
-        this.name = name;
-    }
-
     public Restaurant(Restaurant restaurant) {
         super(restaurant.id);
         this.name = restaurant.name;
     }
+
+    public Restaurant(Integer id, String name) {
+        super(id);
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

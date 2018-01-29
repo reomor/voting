@@ -13,7 +13,7 @@ public class BaseEntity implements Persistable<Integer> {
     protected Integer id;
 
     BaseEntity() {}
-    BaseEntity(int id) {
+    BaseEntity(Integer id) {
         this.id = id;
     }
 

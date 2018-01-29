@@ -24,7 +24,7 @@ public class Dish extends BaseEntity {
 
     public Dish() {}
 
-    public Dish(int id, String description, Integer price) {
+    public Dish(Integer id, String description, Integer price) {
         super(id);
         this.description = description;
         this.price = price;

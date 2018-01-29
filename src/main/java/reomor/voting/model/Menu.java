@@ -33,7 +33,14 @@ public class Menu extends BaseEntity {
 
     public Menu() {}
 
-    public Menu (int id, LocalDate date, Restaurant restaurant, Collection<Dish> dishes) {
+    public Menu(Menu menu) {
+        super(menu.id);
+        this.date = menu.date;
+        this.restaurant = new Restaurant(menu.restaurant);
+        setDishes(menu.dishes);
+    }
+
+    public Menu (Integer id, LocalDate date, Restaurant restaurant, Collection<Dish> dishes) {
         super(id);
         this.date = date;
         this.restaurant = restaurant;

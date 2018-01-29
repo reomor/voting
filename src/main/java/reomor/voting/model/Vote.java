@@ -21,7 +21,7 @@ public class Vote extends BaseEntity {
 
     public Vote() {}
 
-    Vote(int id) {
+    public Vote(Integer id) {
         super(id);
     }
 

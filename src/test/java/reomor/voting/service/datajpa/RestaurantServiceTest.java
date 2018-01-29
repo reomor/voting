@@ -10,12 +10,14 @@ import reomor.voting.service.RestaurantService;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static reomor.voting.MenuTestData.*;
 import static reomor.voting.RestaurantTestData.*;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
+
     @Autowired
     private RestaurantService service;
 
@@ -61,14 +63,30 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void updateMenuTest() throws Exception {
-
-    }
-
-    @Test
     public void getAllMenusByDateTest() throws Exception {
         final List<Menu> actual = service.getAllMenusByDate(LocalDate.of(2017, Month.DECEMBER, 3));
         //assertMatch(actual, menu0, menu1);
         assertMatch(actual, menu1, menu0);
     }
+
+    @Test
+    public void addMenuTest() throws Exception {
+        Menu menu = new Menu(null, LocalDate.of(2018, Month.JANUARY, 29), restaurant102, Collections.emptyList());
+        Integer id = service.addMenu(menu, restaurant102.getId()).getId();
+        menu.setId(id);
+        Menu actual = service.getMenu(id, LocalDate.of(2018, Month.JANUARY, 29));
+        assertMatch(actual, menu);
+    }
+
+    @Test
+    public void deleteMenuTest() throws Exception {
+
+    }
+
+    @Test
+    public void updateMenuTest() throws Exception {
+
+    }
+
+
 }

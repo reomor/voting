@@ -46,15 +46,15 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Menu addMenu(Menu menu) {
+    public Menu addMenu(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu for add must not be null");
-        return repository.addMenu(menu);
+        return repository.addMenu(menu, restaurantId);
     }
 
     @Override
-    public void updateMenu(Menu menu, int menuId) {
+    public void updateMenu(Menu menu, int restaurantId, int menuId) {
         Assert.notNull(menu, "menu for update must not be null");
-        checkNotFoundWithId(repository.addMenu(menu), menuId);
+        checkNotFoundWithId(repository.addMenu(menu, restaurantId), menuId);
     }
 
     @Override

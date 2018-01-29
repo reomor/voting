@@ -22,9 +22,9 @@ public interface RestaurantService {
     List<Restaurant> getAll();
 
     // Menu
-    Menu addMenu(Menu menu);
+    Menu addMenu(Menu menu, int restaurantId);
 
-    void updateMenu(Menu menu, int menuId);
+    void updateMenu(Menu menu, int restaurantId, int menuId);
 
     void deleteMenu(int menuId);
 

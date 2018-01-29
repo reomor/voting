@@ -15,7 +15,7 @@ public interface RestaurantRepository {
 
     List<Restaurant> getAll();
 
-    Menu addMenu(Menu menu);
+    Menu addMenu(Menu menu, int restaurantId);
 
     boolean deleteMenu(int menuId);
 
