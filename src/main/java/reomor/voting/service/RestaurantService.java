@@ -28,6 +28,8 @@ public interface RestaurantService {
 
     void deleteMenu(int menuId);
 
+    void deleteMenu(int menuId, LocalDate date);
+
     Menu getMenu(int menuId, LocalDate date);
 
     List<Menu> getAllMenusByDate(LocalDate date);

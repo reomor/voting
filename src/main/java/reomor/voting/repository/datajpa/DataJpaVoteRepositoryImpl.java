@@ -43,4 +43,9 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     public Vote get(LocalDateTime dateTime, int userId) {
         return crudVoteRepository.get(dateTime, userId);
     }
+
+    @Override
+    public List<Vote> getAllByUser(int userId) {
+        return crudVoteRepository.getAllByUser(userId);
+    }
 }

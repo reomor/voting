@@ -46,6 +46,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public void deleteMenu(int menuId, LocalDate date) {
+        checkNotFoundWithId(repository.deleteMenu(menuId, date), menuId);
+    }
+
+    @Override
     public Menu addMenu(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu for add must not be null");
         return repository.addMenu(menu, restaurantId);

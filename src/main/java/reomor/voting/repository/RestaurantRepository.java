@@ -19,6 +19,8 @@ public interface RestaurantRepository {
 
     boolean deleteMenu(int menuId);
 
+    boolean deleteMenu(int menuId, LocalDate date);
+
     Menu getMenu(int menuId, LocalDate date);
 
     List<Menu> getAllMenusByDate(LocalDate date);

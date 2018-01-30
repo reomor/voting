@@ -57,6 +57,11 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
+    public boolean deleteMenu(int menuId, LocalDate date) {
+        return crudMenuRepository.delete(menuId, date) != 0;
+    }
+
+    @Override
     public Menu getMenu(int menuId, LocalDate date) {
         return crudMenuRepository.findById(menuId).filter(menu -> menu.getDate().equals(date)).orElse(null);
     }

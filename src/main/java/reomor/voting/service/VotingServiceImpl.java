@@ -7,6 +7,7 @@ import reomor.voting.model.Vote;
 import reomor.voting.repository.VoteRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static reomor.voting.util.ValidationUtil.checkNotFound;
 import static reomor.voting.util.ValidationUtil.checkNotFoundWithId;
@@ -33,5 +34,11 @@ public class VotingServiceImpl implements VotingService {
     public Vote get(LocalDateTime dateTime, int userId) {
         Assert.notNull(dateTime, "dateTime for delete must not be null");
         return checkNotFound(repository.get(dateTime, userId), "dateTime=" + dateTime + " userId=" + userId);
+    }
+
+    @Override
+    public List<Vote> getAllByUser(int userId) {
+        checkNotFoundWithId(repository.getAllByUser(userId).isEmpty(), userId);
+        return repository.getAllByUser(userId);
     }
 }
