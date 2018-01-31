@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserTestData {
     public static final User user1000 = new User(1000, "User", "user@yandex.ru", "password", true, new Date(), Collections.singleton(Role.ROLE_USER));
-    public static final User user1001 = new User(1000, "Admin", "admin@gmail.com", "admin", true, new Date(), Collections.singleton(Role.ROLE_ADMIN));
+    public static final User admin1001 = new User(1001, "Admin", "admin@gmail.com", "admin", true, new Date(), Role.ROLE_ADMIN, Role.ROLE_USER);
 
     public static void assertMatch(User actual, User expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "password", "registered");

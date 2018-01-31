@@ -13,6 +13,7 @@ public class BaseEntity implements Persistable<Integer> {
     protected Integer id;
 
     BaseEntity() {}
+
     BaseEntity(Integer id) {
         this.id = id;
     }

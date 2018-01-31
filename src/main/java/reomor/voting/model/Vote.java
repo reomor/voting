@@ -21,8 +21,11 @@ public class Vote extends BaseEntity {
 
     public Vote() {}
 
-    public Vote(Integer id) {
+    public Vote(Integer id, LocalDateTime dateTime, User user, Restaurant restaurant) {
         super(id);
+        this.dateTime = dateTime;
+        this.user = new User(user);
+        this.restaurant = new Restaurant(restaurant);
     }
 
     public LocalDateTime getDateTime() {

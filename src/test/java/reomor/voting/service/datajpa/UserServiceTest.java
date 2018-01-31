@@ -26,22 +26,31 @@ public class UserServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void delete() {
+    public void deleteTest() {
+        service.delete(1001);
+        assertMatch(service.getAll(), user1000);
     }
 
     @Test
-    public void get() {
+    public void updateTest() {
+        User updated = new User(user1000);
+        updated.setEnabled(false);
+        service.update(updated);
+        assertMatch(service.get(updated.getId()), updated);
+    }
+
+    @Test
+    public void getTest() {
+        assertMatch(service.get(1001), admin1001);
     }
 
     @Test
     public void getByEmail() {
-    }
-
-    @Test
-    public void update() {
+        assertMatch(service.getByEmail("admin@gmail.com"), admin1001);
     }
 
     @Test
     public void getAll() {
+        assertMatch(service.getAll(), admin1001, user1000);
     }
 }

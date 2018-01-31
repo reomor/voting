@@ -2,6 +2,7 @@ package reomor.voting.repository.datajpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import reomor.voting.model.Vote;
 import reomor.voting.repository.VoteRepository;
 
@@ -22,7 +23,12 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     private CrudUserRepository crudUserRepository;
 
     @Override
+    @Transactional
     public Vote make(Vote vote, int userId, int restaurantId) {
+        Vote existed = get(vote.getDateTime(), userId);
+        if (vote.isNew() && existed != null) {
+            vote.setId(existed.getId());
+        }
         if (!crudUserRepository.findById(userId).isPresent()) {
             return null;
         }

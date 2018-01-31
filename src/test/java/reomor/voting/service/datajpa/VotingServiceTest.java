@@ -1,21 +1,32 @@
 package reomor.voting.service.datajpa;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import reomor.voting.model.Vote;
 import reomor.voting.service.AbstractServiceTest;
+import reomor.voting.service.VotingService;
 
-import static org.junit.Assert.*;
+import java.time.LocalDateTime;
+import java.time.Month;
+
+import static reomor.voting.UserTestData.*;
+import static reomor.voting.RestaurantTestData.*;
+import static reomor.voting.VoteTestData.*;
 
 public class VotingServiceTest extends AbstractServiceTest {
 
+    @Autowired
+    private VotingService service;
+
     @Test
-    public void make() {
+    public void getTest() {
+        assertMatch(service.get(LocalDateTime.of(2017, Month.DECEMBER, 3, 10, 0, 0), 1000), vote0);
     }
 
     @Test
-    public void delete() {
-    }
-
-    @Test
-    public void get() {
+    public void makeNewTest() {
+        Vote vote = new Vote(null, LocalDateTime.of(2017, Month.DECEMBER, 4, 10, 0, 0), user1000, restaurant100);
+        service.make(vote, 1000, 100);
+        assertMatch(service.get(LocalDateTime.of(2017, Month.DECEMBER, 4, 10, 0, 0), vote.getUser().getId()), vote);
     }
 }

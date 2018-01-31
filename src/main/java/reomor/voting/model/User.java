@@ -33,8 +33,8 @@ public class User extends BaseEntity {
     @NotNull
     private Date registered = new Date();
 
-    @Column(name = "ENABLED", columnDefinition = "bool default true")
-    private boolean enabled;
+    @Column(name = "ENABLED", nullable = false, columnDefinition = "bool default true")
+    private Boolean enabled = true;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"))
@@ -45,8 +45,18 @@ public class User extends BaseEntity {
 
     public User() {}
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, true, new Date(), EnumSet.of(role, roles));
+    public User(User user) {
+        super(user.getId());
+        this.name = user.name;
+        this.email = user.email;
+        this.password = user.password;
+        this.registered = (Date) user.registered.clone();
+        this.enabled = user.enabled;
+        setRoles(user.getRoles());
+    }
+
+    public User(Integer id, String name, String email, String password, Boolean enabled, Date registered, Role role, Role... roles) {
+        this(id, name, email, password, enabled, registered, EnumSet.of(role, roles));
     }
 
     public User(Integer id, String name, String email, String password, Boolean enabled, Date registered, Collection<Role> roles) {
@@ -79,6 +89,30 @@ public class User extends BaseEntity {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Date registered) {
+        this.registered = registered;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
