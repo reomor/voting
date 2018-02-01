@@ -29,4 +29,15 @@ public class VotingServiceTest extends AbstractServiceTest {
         service.make(vote, 1000, 100);
         assertMatch(service.get(LocalDateTime.of(2017, Month.DECEMBER, 4, 10, 0, 0), vote.getUser().getId()), vote);
     }
+
+    @Test
+    public void getAllByUserTest() {
+        assertMatch(service.getAllByUser(1000), vote2, vote0);
+    }
+
+    @Test
+    public void deleteTest() {
+        service.delete( LocalDateTime.of(2017, Month.DECEMBER, 3, 10, 0, 0), user1000.getId());
+        assertMatch(service.getAllByUser(user1000.getId()), vote2);
+    }
 }

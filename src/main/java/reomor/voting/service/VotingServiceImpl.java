@@ -38,7 +38,9 @@ public class VotingServiceImpl implements VotingService {
 
     @Override
     public List<Vote> getAllByUser(int userId) {
-        checkNotFoundWithId(repository.getAllByUser(userId).isEmpty(), userId);
+        checkNotFoundWithId(!repository.getAllByUser(userId).isEmpty(), userId);
         return repository.getAllByUser(userId);
     }
+    // getAllByDate
+    // getAll
 }
