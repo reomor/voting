@@ -1,6 +1,9 @@
 package reomor.voting.service;
 
+import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import reomor.voting.model.Menu;
@@ -50,18 +53,21 @@ public class RestaurantServiceImpl implements RestaurantService {
         checkNotFoundWithId(repository.deleteMenu(menuId, date), menuId);
     }
 
+    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu addMenu(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu for add must not be null");
         return repository.addMenu(menu, restaurantId);
     }
 
+    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public void updateMenu(Menu menu, int restaurantId, int menuId) {
         Assert.notNull(menu, "menu for update must not be null");
         checkNotFoundWithId(repository.addMenu(menu, restaurantId), menuId);
     }
 
+    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public void deleteMenu(int menuId) {
         checkNotFoundWithId(repository.deleteMenu(menuId), menuId);
@@ -72,6 +78,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         return checkNotFoundWithId(repository.getMenu(menuId, date), menuId);
     }
 
+    @Cacheable("menus")
     @Override
     public List<Menu> getAllMenusByDate(LocalDate date) {
         return repository.getAllMenusByDate(date);

@@ -1,6 +1,7 @@
 package reomor.voting.model;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
 
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
 @Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL", name = "USERS_UNIQUE_EMAIL_IDX")})
 public class User extends BaseEntity {
@@ -36,6 +38,7 @@ public class User extends BaseEntity {
     @Column(name = "ENABLED", nullable = false, columnDefinition = "bool default true")
     private Boolean enabled = true;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "USER_ID"))
     @Column(name = "ROLE")

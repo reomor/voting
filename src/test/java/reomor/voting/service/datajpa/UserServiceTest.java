@@ -1,7 +1,9 @@
 package reomor.voting.service.datajpa;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import reomor.voting.model.Role;
 import reomor.voting.model.User;
 import reomor.voting.service.AbstractServiceTest;
@@ -16,6 +18,14 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     UserService service;
+
+    @Autowired
+    CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("users").clear();
+    }
 
     @Test
     public void createTest() {
