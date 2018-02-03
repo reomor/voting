@@ -13,14 +13,14 @@ public class RestaurantTestData {
     public static final Restaurant restaurant102 = new Restaurant(102, "BurgerKing");
 
     public static void assertMatch(Restaurant actual, Restaurant expected) {
-        assertThat(actual).isEqualToComparingFieldByField(expected);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "menus");
     }
 
     public static void assertMatch(Iterable<Restaurant> actual, Restaurant ... expected) {
-        assertThat(actual).usingFieldByFieldElementComparator().isEqualTo(Arrays.asList(expected));
+        assertMatch(actual, Arrays.asList(expected));
     }
 
     public static void assertMatch(Iterable<Restaurant> actual, Iterable<Restaurant> expected) {
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).usingElementComparatorIgnoringFields("menus").isEqualTo(expected);
     }
 }

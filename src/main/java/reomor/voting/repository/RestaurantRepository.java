@@ -21,7 +21,13 @@ public interface RestaurantRepository {
 
     boolean deleteMenu(int menuId, LocalDate date);
 
+    Menu getMenu(int menuId);
+
     Menu getMenu(int menuId, LocalDate date);
 
+    Menu getMenuByRestaurantAndDate(int restaurantId, LocalDate date);
+
     List<Menu> getAllMenusByDate(LocalDate date);
+
+    List<Menu> getAllMenusByRestaurant(int restaurantId);
 }

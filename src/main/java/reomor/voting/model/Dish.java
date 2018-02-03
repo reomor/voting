@@ -1,5 +1,6 @@
 package reomor.voting.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Dish extends BaseEntity {
     @Range(min = 0, max = 10000)
     private Integer price;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "MENU_ID")
     private Menu menu;

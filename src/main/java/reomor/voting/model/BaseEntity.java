@@ -1,10 +1,15 @@
 package reomor.voting.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
+
+@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public class BaseEntity implements Persistable<Integer> {

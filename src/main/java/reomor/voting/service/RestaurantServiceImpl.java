@@ -1,6 +1,5 @@
 package reomor.voting.service;
 
-import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,6 +12,7 @@ import reomor.voting.repository.RestaurantRepository;
 import java.time.LocalDate;
 import java.util.List;
 
+import static reomor.voting.util.ValidationUtil.checkNotFound;
 import static reomor.voting.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -74,13 +74,28 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    public Menu getMenu(int menuId) {
+        return checkNotFoundWithId(repository.getMenu(menuId), menuId);
+    }
+
+    @Override
     public Menu getMenu(int menuId, LocalDate date) {
         return checkNotFoundWithId(repository.getMenu(menuId, date), menuId);
+    }
+
+    @Override
+    public Menu getMenuByRestaurantAndDate(int restaurantId, LocalDate date) {
+        return checkNotFound(repository.getMenuByRestaurantAndDate(restaurantId, date), "get menu for restaurant with id=" + restaurantId);
     }
 
     @Cacheable("menus")
     @Override
     public List<Menu> getAllMenusByDate(LocalDate date) {
         return repository.getAllMenusByDate(date);
+    }
+
+    @Override
+    public List<Menu> getAllMenusByRestaurant(int restaurantId) {
+        return repository.getAllMenusByRestaurant(restaurantId);
     }
 }

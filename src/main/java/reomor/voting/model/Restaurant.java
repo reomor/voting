@@ -1,10 +1,11 @@
 package reomor.voting.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "RESTAURANT")
@@ -13,6 +14,11 @@ public class Restaurant extends BaseEntity {
     @NotBlank
     @Size(max = 150)
     private String name;
+
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
+    @OrderBy("date DESC")
+    private List<Menu> menus;
 
     public Restaurant() {}
 

@@ -1,5 +1,6 @@
 package reomor.voting.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.util.CollectionUtils;
@@ -24,6 +25,7 @@ public class Menu extends BaseEntity {
     private LocalDate date;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "RESTAURANT_ID")
     @NotNull
@@ -31,6 +33,8 @@ public class Menu extends BaseEntity {
     private Restaurant restaurant;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    // http://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
+    @JsonManagedReference
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @BatchSize(size = 200)
     private List<Dish> dishes;
