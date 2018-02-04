@@ -3,6 +3,7 @@ package reomor.voting.service;
 import reomor.voting.model.Dish;
 import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
+import reomor.voting.to.MenuTo;
 import reomor.voting.to.RestaurantWithMenu;
 
 import java.time.LocalDate;
@@ -28,11 +29,13 @@ public interface RestaurantService {
     // Menu
     Menu addMenu(Menu menu, int restaurantId);
 
+    Menu addMenu(MenuTo menuTo, int restaurantId);
+
     void updateMenu(Menu menu, int restaurantId, int menuId);
 
-    void deleteMenu(int menuId);
+    void updateMenu(MenuTo menuTo, int restaurantId, int menuId);
 
-    void deleteMenu(int menuId, LocalDate date);
+    void deleteMenu(int restaurantId, int menuId);
 
     Menu getMenu(int menuId);
 

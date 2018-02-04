@@ -2,6 +2,7 @@ package reomor.voting.repository;
 
 import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
+import reomor.voting.to.MenuTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,9 +20,9 @@ public interface RestaurantRepository {
 
     Menu addMenu(Menu menu, int restaurantId);
 
-    boolean deleteMenu(int menuId);
+    Menu addMenu(MenuTo menuTo, int restaurantId);
 
-    boolean deleteMenu(int menuId, LocalDate date);
+    boolean deleteMenu(int restaurantId, int menuId);
 
     Menu getMenu(int menuId);
 

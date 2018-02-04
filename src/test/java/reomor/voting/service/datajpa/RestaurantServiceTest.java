@@ -79,12 +79,6 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    public void deleteMenuTest() throws Exception {
-        service.deleteMenu(0);
-        assertMatch(service.getAllMenusByDate(LocalDate.of(2017, Month.DECEMBER, 3)), menu1);
-    }
-
-    @Test
     public void updateMenuTest() throws Exception {
         Menu update = service.getMenu(1, LocalDate.of(2017, Month.DECEMBER, 3));
         update.setRestaurant(restaurant102);

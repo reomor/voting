@@ -18,8 +18,8 @@ public interface CrudMenuRepository extends JpaRepository<Menu, Integer> {
     
     @Modifying
     @Transactional
-    @Query("DELETE FROM Menu m WHERE m.id=:id")
-    int delete(@Param("id") int id);
+    @Query("DELETE FROM Menu m WHERE m.restaurant.id=:restaurantid AND m.id=:id")
+    int delete(@Param("restaurantid") int restaurantId, @Param("id") int id);
 
     @Modifying
     @Transactional

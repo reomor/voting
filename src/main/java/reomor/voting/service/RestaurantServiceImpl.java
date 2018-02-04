@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
 import reomor.voting.repository.RestaurantRepository;
+import reomor.voting.to.MenuTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -65,16 +66,16 @@ public class RestaurantServiceImpl implements RestaurantService {
         checkNotFoundWithId(repository.delete(restaurantId), restaurantId);
     }
 
-    @Override
-    public void deleteMenu(int menuId, LocalDate date) {
-        checkNotFoundWithId(repository.deleteMenu(menuId, date), menuId);
-    }
-
     @CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu addMenu(Menu menu, int restaurantId) {
         Assert.notNull(menu, "menu for add must not be null");
         return repository.addMenu(menu, restaurantId);
+    }
+
+    @Override
+    public Menu addMenu(MenuTo menuTo, int restaurantId) {
+        return repository.addMenu(menuTo, restaurantId);
     }
 
     @CacheEvict(value = "menus", allEntries = true)
@@ -84,10 +85,15 @@ public class RestaurantServiceImpl implements RestaurantService {
         checkNotFoundWithId(repository.addMenu(menu, restaurantId), menuId);
     }
 
+    @Override
+    public void updateMenu(MenuTo menuTo, int restaurantId, int menuId) {
+        checkNotFoundWithId(repository.addMenu(menuTo, restaurantId), menuId);
+    }
+
     @CacheEvict(value = "menus", allEntries = true)
     @Override
-    public void deleteMenu(int menuId) {
-        checkNotFoundWithId(repository.deleteMenu(menuId), menuId);
+    public void deleteMenu(int restaurantId, int menuId) {
+        checkNotFoundWithId(repository.deleteMenu(restaurantId, menuId), menuId);
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
 import reomor.voting.service.RestaurantService;
+import reomor.voting.to.MenuTo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,7 +15,7 @@ public abstract class AbstractRestaurantController {
     private static final Logger log = LoggerFactory.getLogger(AbstractRestaurantController.class);
 
     @Autowired
-    RestaurantService service;
+    private RestaurantService service;
 
     public List<Restaurant> getAll() {
         log.info("getAll");
@@ -53,28 +54,20 @@ public abstract class AbstractRestaurantController {
         return service.getMenuByRestaurantAndDate(restaurantId, date);
     }
 
-    public Menu getMenu(int menuId) {
-        log.info("get Menu with id{}", menuId);
-        return service.getMenu(menuId);
+    public Menu addMenuFromMenuTo(MenuTo menuTo, int restaurantId) {
+        return service.addMenu(menuTo, restaurantId);
     }
 
-    public Menu getMenu(int menuId, LocalDate date) {
-        log.info("get Menu {} with {}", menuId, date);
-        return service.getMenu(menuId, date);
+    public void updateMenuFromMenuTo(MenuTo menuTo, int restaurantId, int menuId) {
+        service.updateMenu(menuTo, restaurantId, menuId);
+    }
+
+    public void deleteMenu(int restaurantId, int menuId) {
+        service.deleteMenu(restaurantId, menuId);
     }
 
     Menu getMenuByIdAndRestaurant(int menuId, int restaurantId) {
         return service.getMenuByIdAndRestaurant(menuId, restaurantId);
-    }
-
-    public Menu getMenuByRestaurantAndDate(int restaurantId, LocalDate date) {
-        log.info("get menu for Restaurant {} by Date {}", restaurantId, date);
-        return service.getMenuByRestaurantAndDate(restaurantId, date);
-    }
-
-    public List<Menu> getAllMenusByRestaurant(int restaurantId) {
-        log.info("get all menus by Restaurant {}", restaurantId);
-        return service.getAllMenusByRestaurant(restaurantId);
     }
 
     public List<Menu> getAllMenusByDate(LocalDate date) {
