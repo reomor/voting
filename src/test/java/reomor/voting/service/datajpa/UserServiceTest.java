@@ -29,7 +29,7 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void createTest() {
-        User user = new User(null, "Hulio", "hulio@ya.ru", "ololo", true, new Date(), Collections.singleton(Role.ROLE_USER));
+        User user = new User(null, "Hulio", "hulio@ya.ru", "olololo", true, new Date(), Collections.singleton(Role.ROLE_USER));
         User created = service.create(user);
         user.setId(created.getId());
         assertMatch(service.get(created.getId()), user);
