@@ -8,7 +8,13 @@ import java.util.List;
 public interface VotingService {
     Vote make(Vote vote, int userId, int restaurantId);
 
+    Vote update(Vote vote, int userId, int restaurantId);
+
+    void delete(int id, int userId);
+
     void delete(LocalDateTime dateTime, int userId);
+
+    Vote get(int id, int userId);
 
     Vote get(LocalDateTime dateTime, int userId);
 

@@ -11,7 +11,11 @@ public interface VoteRepository {
 
     Vote make(Vote vote, int userId, int restaurantId);
 
+    boolean delete(int id, int userId);
+
     boolean delete(LocalDateTime dateTime, int userId);
+
+    Vote get(int id, int userId);
 
     Vote get(LocalDateTime dateTime, int userId);
 

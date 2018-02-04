@@ -29,20 +29,27 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
         if (vote.isNew() && existed != null) {
             vote.setId(existed.getId());
         }
-        if (!crudUserRepository.findById(userId).isPresent()) {
+        if (!crudUserRepository.findById(userId).isPresent() || !crudRestaurantRepository.findById(restaurantId).isPresent()) {
             return null;
         }
         vote.setUser(crudUserRepository.getOne(userId));
-        if (!crudRestaurantRepository.findById(restaurantId).isPresent()) {
-            return null;
-        }
         vote.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         return crudVoteRepository.save(vote);
     }
 
     @Override
+    public boolean delete(int id, int userId) {
+        return crudVoteRepository.delete(id, userId) != 0;
+    }
+
+    @Override
     public boolean delete(LocalDateTime dateTime, int userId) {
         return crudVoteRepository.delete(dateTime, userId) != 0;
+    }
+
+    @Override
+    public Vote get(int id, int userId) {
+        return crudVoteRepository.findById(id).filter(vote -> vote.getUser().getId() == userId).orElse(null);
     }
 
     @Override

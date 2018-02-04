@@ -10,7 +10,7 @@
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
-                    <bean class="reomor.voting.web.JacksonObjectMapper"/>
+                    <bean class="reomor.voting.web.json.JacksonObjectMapper"/>
                 </property>
             </bean>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">

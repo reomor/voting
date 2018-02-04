@@ -1,4 +1,4 @@
-package reomor.voting.web;
+package reomor.voting.web.json;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
