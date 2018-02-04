@@ -19,6 +19,10 @@ public interface RestaurantService {
 
     Restaurant get(int restaurantId);
 
+    Restaurant getWithMenus(int restaurantId);
+
+    Restaurant getWithMenuByDate(int restaurantId, LocalDate date);
+
     List<Restaurant> getAll();
 
     // Menu
@@ -33,6 +37,8 @@ public interface RestaurantService {
     Menu getMenu(int menuId);
 
     Menu getMenu(int menuId, LocalDate date);
+
+    Menu getMenuByIdAndRestaurant(int menuId, int restaurantId);
 
     Menu getMenuByRestaurantAndDate(int restaurantId, LocalDate date);
 

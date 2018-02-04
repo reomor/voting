@@ -21,25 +21,19 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Menu getMenuByRestaurant(@PathVariable("id") int restaurantId) {
-        return super.getMenuByRestaurantAndDate(restaurantId, LocalDate.now());
+    public Restaurant getWithMenuByDate(@PathVariable("id") int restaurantId) {
+        return super.getWithMenuByDate(restaurantId, LocalDate.now());
     }
 
     @Override
     @GetMapping(value = "/{id}/menus", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getAllMenusByRestaurant(@PathVariable("id") int restaurantId) {
-        return super.getAllMenusByRestaurant(restaurantId);
+        return super.getWithMenus(restaurantId).getMenus();
     }
 
-    @Override
     @GetMapping(value = "/{id}/menus/{menuid}")
-    public Menu getMenuByRestaurantAndDate(int restaurantId, LocalDate date) {
-        return service.getMenuByRestaurantAndDate(restaurantId, date);
-    }
-
-    @Override
-    public Menu getMenu(@PathVariable("menuid") int menuId) {
-        return super.getMenu(menuId);
+    public Menu getMenuByIdAndRestaurant(@PathVariable("id") int restaurantId, @PathVariable("menuid") int menuId) {
+        return super.getMenuByIdAndRestaurant(menuId, restaurantId);
     }
 
     @Override

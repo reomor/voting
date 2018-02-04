@@ -36,6 +36,16 @@ public abstract class AbstractRestaurantController {
         service.update(restaurant, restaurantId);
     }
 
+    Restaurant getWithMenuByDate(int restaurantId, LocalDate date) {
+        log.info("");
+        return service.getWithMenuByDate(restaurantId, date);
+    }
+
+    Restaurant getWithMenus(int restaurantId) {
+        log.info("");
+        return service.getWithMenus(restaurantId);
+    }
+
     /* MENU */
 
     public Menu get(int restaurantId, LocalDate date) {
@@ -51,6 +61,10 @@ public abstract class AbstractRestaurantController {
     public Menu getMenu(int menuId, LocalDate date) {
         log.info("get Menu {} with {}", menuId, date);
         return service.getMenu(menuId, date);
+    }
+
+    Menu getMenuByIdAndRestaurant(int menuId, int restaurantId) {
+        return service.getMenuByIdAndRestaurant(menuId, restaurantId);
     }
 
     public Menu getMenuByRestaurantAndDate(int restaurantId, LocalDate date) {

@@ -11,6 +11,7 @@ import reomor.voting.repository.RestaurantRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static reomor.voting.util.ValidationUtil.checkNotFound;
 import static reomor.voting.util.ValidationUtil.checkNotFoundWithId;
@@ -37,6 +38,22 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant get(int restaurantId) {
         return checkNotFoundWithId(repository.get(restaurantId), restaurantId);
     }
+
+    @Override
+    public Restaurant getWithMenus(int restaurantId) {
+        return getWithMenuByDate(restaurantId, null);
+    }
+
+    @Override
+    public Restaurant getWithMenuByDate(int restaurantId, LocalDate date) {
+        final Restaurant restaurant = repository.getWithMenus(restaurantId);
+        if (date == null) {
+            return restaurant;
+        }
+        restaurant.setMenus(restaurant.getMenus().stream().filter(menu -> menu.getDate().equals(date)).collect(Collectors.toList()));
+        return restaurant;
+    }
+
 
     @Override
     public List<Restaurant> getAll() {
@@ -81,6 +98,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Menu getMenu(int menuId, LocalDate date) {
         return checkNotFoundWithId(repository.getMenu(menuId, date), menuId);
+    }
+
+    @Override
+    public Menu getMenuByIdAndRestaurant(int menuId, int restaurantId) {
+        return repository.getMenuByIdAndRestaurant(menuId, restaurantId);
     }
 
     @Override

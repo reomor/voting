@@ -39,6 +39,11 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
+    public Restaurant getWithMenus(int restaurantId) {
+        return crudRestaurantRepository.getWithMenus(restaurantId);
+    }
+
+    @Override
     public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll(SORT_NAME);
     }
@@ -69,6 +74,11 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public Menu getMenu(int menuId, LocalDate date) {
         return crudMenuRepository.findById(menuId).filter(menu -> menu.getDate().equals(date)).orElse(null);
+    }
+
+    @Override
+    public Menu getMenuByIdAndRestaurant(int menuId, int restaurantId) {
+        return crudMenuRepository.getMenuByIdAndRestaurant(menuId, restaurantId);
     }
 
     @Override
