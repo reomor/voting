@@ -8,7 +8,9 @@ import reomor.voting.repository.VoteRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class DataJpaVoteRepositoryImpl implements VoteRepository {
@@ -25,7 +27,8 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     @Override
     @Transactional
     public Vote make(Vote vote, int userId, int restaurantId) {
-        Vote existed = get(vote.getDateTime(), userId);
+        Vote existed = getByDateAndUser(vote.getLocalDate(), userId);
+
         if (vote.isNew() && existed != null) {
             vote.setId(existed.getId());
         }
@@ -60,5 +63,21 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     @Override
     public List<Vote> getAllByUser(int userId) {
         return crudVoteRepository.getAllByUser(userId);
+    }
+
+    private Vote getByDateAndUser(LocalDate date, int userId) {
+        LocalDateTime startDateTime = LocalDateTime.of(date, LocalTime.MIN);
+        LocalDateTime endDateTime = LocalDateTime.of(date, LocalTime.MAX);
+        final List<Vote> between = crudVoteRepository.getBetween(startDateTime, endDateTime);
+
+        final List<Vote> votes = between.stream()
+                .filter(vote -> vote.getUser().getId() == userId)
+                .collect(Collectors.toList());
+
+        if (votes.size() >= 2) {
+            throw  new RuntimeException("more than one vote per user=" + userId + "for day=" + date);
+        }
+
+        return votes.size() == 0 ? null : votes.get(0);
     }
 }

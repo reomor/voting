@@ -61,7 +61,7 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @Override
-    @GetMapping("/menus")
+    @GetMapping(value = "/menus")
     public List<Menu> getAllMenusByDate(@RequestParam(name = "date", required = false)
                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         if (date == null) {

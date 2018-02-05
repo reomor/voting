@@ -6,6 +6,7 @@ import org.springframework.util.Assert;
 import reomor.voting.model.Vote;
 import reomor.voting.repository.VoteRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -57,6 +58,4 @@ public class VotingServiceImpl implements VotingService {
         checkNotFoundWithId(!repository.getAllByUser(userId).isEmpty(), userId);
         return repository.getAllByUser(userId);
     }
-    // getAllByDate
-    // getAll
 }
