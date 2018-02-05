@@ -1,10 +1,13 @@
 package reomor.voting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import sun.rmi.server.LoaderHandler;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "VOTES")
@@ -33,6 +36,14 @@ public class Vote extends BaseEntity {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public LocalDate getLocalDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getLocalTime() {
+        return dateTime.toLocalTime();
     }
 
     public void setDateTime(LocalDateTime dateTime) {
