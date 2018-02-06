@@ -29,11 +29,11 @@ public class VoteRestController extends AbstractVoteController {
         return super.get(id);
     }
 
-    @PostMapping(value = "/{restaurantId}")
+    @PostMapping(value = "/restaurant/{restaurantId}")
     public ResponseEntity<Object> makeVote(@PathVariable("restaurantId") int restaurantId) {
 
         if (isLateTime(LocalTime.now())) {
-            return ResponseEntity.badRequest().body("");
+            return ResponseEntity.badRequest().body("it is too late");
         }
 
         Vote vote = new Vote();
