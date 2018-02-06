@@ -34,7 +34,7 @@ public class ValidationUtil {
     }
 
     public static void assureIdConsistent(BaseEntity entity, int id) {
-//      http://stackoverflow.com/a/32728226/548473
+        // http://stackoverflow.com/a/32728226/548473
         if (entity.isNew()) {
             entity.setId(id);
         } else if (entity.getId() != id) {

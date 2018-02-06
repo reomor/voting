@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
-    public void update(User user) {
+    public void update(User user, int id) {
         Assert.notNull(user, "user for update must not be null");
-        checkNotFoundWithId(repository.save(user), user.getId());
+        checkNotFoundWithId(repository.save(user), id);
     }
 
     @Cacheable("users")

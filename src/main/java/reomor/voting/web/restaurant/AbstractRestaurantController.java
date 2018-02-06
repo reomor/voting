@@ -11,6 +11,8 @@ import reomor.voting.to.MenuTo;
 import java.time.LocalDate;
 import java.util.List;
 
+import static reomor.voting.util.ValidationUtil.*;
+
 public abstract class AbstractRestaurantController {
     private static final Logger log = LoggerFactory.getLogger(AbstractRestaurantController.class);
 
@@ -24,6 +26,7 @@ public abstract class AbstractRestaurantController {
 
     public Restaurant add(Restaurant restaurant) {
         log.info("add Restaurant");
+        checkNew(restaurant);
         return service.add(restaurant);
     }
 
@@ -34,6 +37,7 @@ public abstract class AbstractRestaurantController {
 
     public void update(Restaurant restaurant, int restaurantId) {
         log.info("update Restaurant{} with id{}", restaurant, restaurantId);
+        assureIdConsistent(restaurant, restaurantId);
         service.update(restaurant, restaurantId);
     }
 

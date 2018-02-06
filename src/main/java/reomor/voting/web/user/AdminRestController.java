@@ -1,12 +1,12 @@
 package reomor.voting.web.user;
 
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reomor.voting.model.User;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -24,5 +24,31 @@ public class AdminRestController extends AbstractUserController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User get(@PathVariable("id") int id) {
         return super.get(id);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
+        User created = super.create(user);
+
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PutMapping(value = "/{id}")
+    public void update(User user, int id) {
+        super.update(user, id);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") int id) {
+        super.delete(id);
+    }
+
+    @GetMapping(value = "/bymail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByEmail(@RequestParam String email) {
+        return super.getByEmail(email);
     }
 }

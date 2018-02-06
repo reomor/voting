@@ -13,7 +13,7 @@ public interface UserService {
 
     User getByEmail(String email);
 
-    void update(User user);
+    void update(User user, int id);
 
     List<User> getAll();
 }
