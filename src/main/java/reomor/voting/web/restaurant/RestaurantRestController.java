@@ -70,8 +70,8 @@ public class RestaurantRestController extends AbstractRestaurantController {
         return super.getAllMenusByDate(date);
     }
 
-    @PostMapping(value = "/{id}/menus/admin")
-    public ResponseEntity<Menu> addMenu(@RequestBody MenuTo menuTo, @PathVariable("id") int restaurantId) {
+    @PostMapping(value = "/{restaurantid}/menus/admin")
+    public ResponseEntity<Menu> addMenu(@RequestBody MenuTo menuTo, @PathVariable("restaurantid") int restaurantId) {
         Menu create = super.addMenuFromMenuTo(menuTo, restaurantId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
