@@ -3,8 +3,12 @@ package reomor.voting.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import reomor.voting.AuthorizedUser;
 import reomor.voting.model.User;
 import reomor.voting.repository.UserRepository;
 
@@ -13,8 +17,8 @@ import java.util.List;
 import static reomor.voting.util.ValidationUtil.checkNotFound;
 import static reomor.voting.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
-public class UserServiceImpl implements UserService {
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository repository;
 
@@ -58,5 +62,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        final User user = repository.getByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User with email=" + email + " not found in base");
+        }
+        return new AuthorizedUser(user);
     }
 }
