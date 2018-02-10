@@ -1,7 +1,9 @@
 package reomor.voting.service.datajpa;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
 import reomor.voting.service.AbstractServiceTest;
@@ -20,6 +22,14 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     private RestaurantService service;
+
+    @Autowired
+    CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("menus").clear();
+    }
 
     /* Restaurant */
     @Test
