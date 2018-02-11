@@ -26,7 +26,8 @@ public class Menu extends BaseEntity {
     private LocalDate date;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonManagedReference
+    // https://stackoverflow.com/questions/28179369/spring-rest-json-can-not-handle-managed-back-reference-defaultreference-415
+    //@JsonManagedReference
     //@JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID")

@@ -23,4 +23,8 @@ public class JacksonObjectMapper extends ObjectMapper {
         setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
+
+    public static ObjectMapper getMapper() {
+        return MAPPER;
+    }
 }
