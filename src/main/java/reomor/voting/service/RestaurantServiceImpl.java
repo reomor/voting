@@ -69,6 +69,12 @@ public class RestaurantServiceImpl implements RestaurantService {
         checkNotFoundWithId(repository.delete(restaurantId), restaurantId);
     }
 
+
+    @Override
+    public Menu getMenu(int menuId) {
+        return checkNotFoundWithId(repository.getMenu(menuId), menuId);
+    }
+
     //@CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu addMenu(MenuTo menuTo, int restaurantId) {

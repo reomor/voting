@@ -12,6 +12,7 @@ import reomor.voting.repository.RestaurantRepository;
 import reomor.voting.to.MenuTo;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -54,13 +55,6 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
         return crudRestaurantRepository.findAll(SORT_NAME);
     }
 
-    @Override
-    @Transactional
-    public Menu addMenu(Menu menu, int restaurantId) {
-        Menu menuNew = new Menu(menu);
-        menuNew.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
-        return crudMenuRepository.save(menuNew);
-    }
 
     @Override
     @Transactional
@@ -68,19 +62,23 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
         if (!menuTo.isNew() && getMenu(menuTo.getId()) == null) {
             return null;
         }
+
         Menu menuNew;
         if (menuTo.isNew()) {
             menuNew = new Menu();
         } else {
             menuNew = getMenu(menuTo.getId());
-            crudDishRepository.delete(menuTo.getId());
+            crudDishRepository.deleteByMenuId(menuTo.getId());
         }
+
         menuNew.setDate(menuTo.getDate());
         menuNew.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
         for (Dish dish : menuTo.getDishes()) {
+            dish.setId(null);
             dish.setMenu(menuNew);
         }
         menuNew.setDishes(menuTo.getDishes());
+
         // https://stackoverflow.com/questions/19928568/hibernate-best-practice-to-pull-all-lazy-collections
         Hibernate.initialize(menuNew.getRestaurant());
         return crudMenuRepository.save(menuNew);
@@ -97,11 +95,6 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     }
 
     @Override
-    public Menu getMenu(int menuId, LocalDate date) {
-        return crudMenuRepository.findById(menuId).filter(menu -> menu.getDate().equals(date)).orElse(null);
-    }
-
-    @Override
     public Menu getMenuByIdAndRestaurant(int menuId, int restaurantId) {
         return crudMenuRepository.getMenuByIdAndRestaurant(menuId, restaurantId);
     }
@@ -114,10 +107,5 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public List<Menu> getAllMenusByDate(LocalDate date) {
         return crudMenuRepository.getAllMenusByDate(date);
-    }
-
-    @Override
-    public List<Menu> getAllMenusByRestaurant(int restaurantId) {
-        return crudMenuRepository.getAllMenusByRestaurant(restaurantId);
     }
 }

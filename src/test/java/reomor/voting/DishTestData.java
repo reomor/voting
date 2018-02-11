@@ -11,7 +11,7 @@ public class DishTestData {
     public static final Dish dish1 = new Dish(1, "fri", 7500);
     public static final Dish dish2 = new Dish(2, "naggets", 10500);
 
-    public static final Dish dish3 = new Dish(3, "burger", 10500);
+    public static final Dish dish3 = new Dish(3, "burger", 24000);
     public static final Dish dish4 = new Dish(4, "milk", 7900);
 
     public static final Dish dish5 = new Dish(5, "coffee", 9000);

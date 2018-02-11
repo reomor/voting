@@ -27,6 +27,8 @@ public interface RestaurantService {
     List<Restaurant> getAll();
 
     // Menu
+    Menu getMenu(int menuId);
+
     Menu addMenu(MenuTo menuTo, int restaurantId);
 
     void updateMenu(MenuTo menuTo, int restaurantId, int menuId);

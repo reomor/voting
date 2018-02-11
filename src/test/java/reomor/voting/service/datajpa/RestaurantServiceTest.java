@@ -15,8 +15,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static reomor.voting.DishTestData.*;
 import static reomor.voting.MenuTestData.*;
 import static reomor.voting.RestaurantTestData.*;
+import static reomor.voting.util.MenuUtil.asMenuTo;
 
 public class RestaurantServiceTest extends AbstractServiceTest {
 
@@ -83,6 +85,34 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     }
 
     /* MENU */
+    @Test
+    public void getMenuTest() throws Exception {
+        Menu actual = service.getMenu(1);
+        reomor.voting.MenuTestData.assertMatch(actual, menu1);
+    }
+
+    @Test
+    public void addMenuTest() throws Exception {
+        Menu menu = new Menu(null, LocalDate.of(2018, Month.JANUARY, 29), restaurant102, dish_menu3);
+        Integer id = service.addMenu(asMenuTo(menu), restaurant102.getId()).getId();
+        menu.setId(id);
+        Menu actual = service.getMenu(id);
+        assertMatch(actual, menu);
+    }
+
+    @Test
+    public void updateMenuTest() throws Exception {
+        Menu update = service.getMenu(1);
+        update.setRestaurant(restaurant102);
+        service.updateMenu(asMenuTo(update), update.getRestaurant().getId(), update.getId());
+        Menu actual = service.getMenu(1);
+        assertMatch(actual, update);
+    }
+
+    @Test
+    public void deleteMenuTest() throws Exception {
+
+    }
 
     @Test
     public void getAllMenusByDateTest() throws Exception {
@@ -91,20 +121,4 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         assertMatch(actual, menu1, menu0);
     }
 
-    @Test
-    public void addMenuTest() throws Exception {
-        Menu menu = new Menu(null, LocalDate.of(2018, Month.JANUARY, 29), restaurant102, Collections.emptyList());
-        //Integer id = service.addMenu(menu, restaurant102.getId()).getId();
-        //menu.setId(id);
-        //Menu actual = service.getMenu(id, LocalDate.of(2018, Month.JANUARY, 29));
-        //assertMatch(actual, menu);
-    }
-
-    @Test
-    public void updateMenuTest() throws Exception {
-        //Menu update = service.getMenu(1, LocalDate.of(2017, Month.DECEMBER, 3));
-        //update.setRestaurant(restaurant102);
-        //service.updateMenu(update, update.getRestaurant().getId(), update.getId());
-        //assertMatch(service.getMenu(1, LocalDate.of(2017, Month.DECEMBER, 3)), update);
-    }
 }

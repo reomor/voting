@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "DISHES")
@@ -16,7 +17,7 @@ public class Dish extends BaseEntity {
     private String description;
 
     @Column(name = "PRICE")
-    @Range(min = 0, max = 10000)
+    @Range(min = 0)
     private Integer price;
 
     @JsonBackReference
@@ -25,6 +26,12 @@ public class Dish extends BaseEntity {
     private Menu menu;
 
     public Dish() {}
+
+    public Dish(Dish dish) {
+        super(dish.id);
+        this.description = dish.description;
+        this.price = dish.price;
+    }
 
     public Dish(Integer id, String description, Integer price) {
         super(id);
