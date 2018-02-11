@@ -14,6 +14,8 @@ import static reomor.voting.RestaurantTestData.*;
 public class MenuTestData {
     public static final Menu menu0 = new Menu(0, LocalDate.of(2017, Month.DECEMBER, 3), restaurant100, dish_menu0);
     public static final Menu menu1 = new Menu(1, LocalDate.of(2017, Month.DECEMBER, 3), restaurant101, dish_menu1);
+    public static final Menu menu2 = new Menu(2, LocalDate.of(2017, Month.DECEMBER, 4), restaurant100, dish_menu1);
+    public static final Menu menu3 = new Menu(3, LocalDate.of(2017, Month.DECEMBER, 15), restaurant101, dish_menu1);
 
     public static void assertMatch(Menu actual, Menu expected) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "restaurant", "dishes");

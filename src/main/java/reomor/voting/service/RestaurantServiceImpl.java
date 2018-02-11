@@ -23,12 +23,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Autowired
     private RestaurantRepository repository;
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant add(Restaurant restaurant) {
         Assert.notNull(restaurant, "restaurant for add must not be null");
         return repository.add(restaurant);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void update(Restaurant restaurant, int restaurantId) {
         Assert.notNull(restaurant, "restaurant for update must not be null");
@@ -55,35 +57,24 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurant;
     }
 
-
+    @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
         return repository.getAll();
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void delete(int restaurantId) {
         checkNotFoundWithId(repository.delete(restaurantId), restaurantId);
     }
 
-    @CacheEvict(value = "menus", allEntries = true)
-    @Override
-    public Menu addMenu(Menu menu, int restaurantId) {
-        Assert.notNull(menu, "menu for add must not be null");
-        return repository.addMenu(menu, restaurantId);
-    }
-
+    //@CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu addMenu(MenuTo menuTo, int restaurantId) {
         return repository.addMenu(menuTo, restaurantId);
     }
 
-    @CacheEvict(value = "menus", allEntries = true)
-    @Override
-    public void updateMenu(Menu menu, int restaurantId, int menuId) {
-        Assert.notNull(menu, "menu for update must not be null");
-        checkNotFoundWithId(repository.addMenu(menu, restaurantId), menuId);
-    }
 
     @Override
     public void updateMenu(MenuTo menuTo, int restaurantId, int menuId) {
@@ -94,16 +85,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void deleteMenu(int restaurantId, int menuId) {
         checkNotFoundWithId(repository.deleteMenu(restaurantId, menuId), menuId);
-    }
-
-    @Override
-    public Menu getMenu(int menuId) {
-        return checkNotFoundWithId(repository.getMenu(menuId), menuId);
-    }
-
-    @Override
-    public Menu getMenu(int menuId, LocalDate date) {
-        return checkNotFoundWithId(repository.getMenu(menuId, date), menuId);
     }
 
     @Override
@@ -120,10 +101,5 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<Menu> getAllMenusByDate(LocalDate date) {
         return repository.getAllMenusByDate(date);
-    }
-
-    @Override
-    public List<Menu> getAllMenusByRestaurant(int restaurantId) {
-        return repository.getAllMenusByRestaurant(restaurantId);
     }
 }
