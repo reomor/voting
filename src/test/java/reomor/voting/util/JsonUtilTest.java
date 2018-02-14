@@ -5,14 +5,18 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import reomor.voting.model.Restaurant;
 import reomor.voting.model.User;
 import reomor.voting.model.Menu;
 
+import static reomor.voting.RestaurantTestData.*;
 import static reomor.voting.UserTestData.admin1001;
 import static reomor.voting.UserTestData.user1000;
 
 import static reomor.voting.MenuTestData.menu0;
 import static reomor.voting.MenuTestData.menu1;
+
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class JsonUtilTest {
 

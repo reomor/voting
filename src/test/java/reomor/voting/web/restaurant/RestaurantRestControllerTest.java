@@ -9,6 +9,8 @@ import reomor.voting.web.AbstractControllerTest;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static reomor.voting.RestaurantTestData.*;
+import static reomor.voting.TestUtils.*;
 
 public class RestaurantRestControllerTest extends AbstractControllerTest {
 
@@ -22,7 +24,7 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-                //.andExpect() contentJson( list )
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJsonArray(restaurant102, restaurant101, restaurant100));
     }
 }
