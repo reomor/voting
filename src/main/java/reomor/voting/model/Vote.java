@@ -30,8 +30,8 @@ public class Vote extends BaseEntity {
     public Vote(Integer id, LocalDateTime dateTime, User user, Restaurant restaurant) {
         super(id);
         this.dateTime = dateTime;
-        this.user = new User(user);
-        this.restaurant = new Restaurant(restaurant);
+        this.user = user != null ? new User(user) : null;
+        this.restaurant = restaurant != null ? new Restaurant(restaurant) : null;
     }
 
     public LocalDateTime getDateTime() {

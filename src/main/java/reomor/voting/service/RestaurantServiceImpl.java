@@ -75,13 +75,14 @@ public class RestaurantServiceImpl implements RestaurantService {
         return checkNotFoundWithId(repository.getMenu(menuId), menuId);
     }
 
-    //@CacheEvict(value = "menus", allEntries = true)
+    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu addMenu(MenuTo menuTo, int restaurantId) {
-        return repository.addMenu(menuTo, restaurantId);
+        Assert.notNull(menuTo, "menuTo must not be null");
+        return checkNotFoundWithId(repository.addMenu(menuTo, restaurantId), menuTo.getId());
     }
 
-
+    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public void updateMenu(MenuTo menuTo, int restaurantId, int menuId) {
         checkNotFoundWithId(repository.addMenu(menuTo, restaurantId), menuId);
@@ -95,7 +96,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Menu getMenuByIdAndRestaurant(int menuId, int restaurantId) {
-        return repository.getMenuByIdAndRestaurant(menuId, restaurantId);
+        return checkNotFoundWithId(repository.getMenuByIdAndRestaurant(menuId, restaurantId), menuId);
     }
 
     @Override

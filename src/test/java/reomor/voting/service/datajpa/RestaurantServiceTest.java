@@ -8,6 +8,7 @@ import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
 import reomor.voting.service.AbstractServiceTest;
 import reomor.voting.service.RestaurantService;
+import reomor.voting.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -111,7 +112,30 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void deleteMenuTest() throws Exception {
+        service.deleteMenu(101, 1);
+        assertMatch(service.getAllMenusByDate(LocalDate.of(2017, Month.DECEMBER, 3)), Collections.singletonList(menu0));
+    }
 
+    @Test
+    public void testGetMenuByIdAndRestaurant() throws Exception {
+        final Menu actual = service.getMenuByIdAndRestaurant(0, 100);
+        assertMatch(actual, menu0);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testGetMenuByIdAndRestaurantException() throws Exception {
+        final Menu actual = service.getMenuByIdAndRestaurant(2000, 101);
+    }
+
+    @Test
+    public void testGetMenuByRestaurantAndDate() throws Exception {
+        final Menu actual = service.getMenuByRestaurantAndDate(100, LocalDate.of(2017, Month.DECEMBER, 4));
+        assertMatch(actual, menu2);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testGetMenuByRestaurantAndDateException() throws Exception {
+        final Menu actual = service.getMenuByRestaurantAndDate(1000, LocalDate.of(2017, Month.DECEMBER, 4));
     }
 
     @Test

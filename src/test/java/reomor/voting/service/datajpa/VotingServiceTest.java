@@ -8,6 +8,7 @@ import reomor.voting.service.VotingService;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Collections;
 
 import static reomor.voting.UserTestData.*;
 import static reomor.voting.RestaurantTestData.*;
@@ -20,14 +21,29 @@ public class VotingServiceTest extends AbstractServiceTest {
 
     @Test
     public void getTest() {
-        assertMatch(service.get(LocalDateTime.of(2017, Month.DECEMBER, 3, 10, 0, 0), 1000), vote0);
+        Vote actual = service.get(2, 1000);
+        assertMatch(actual, vote2);
+    }
+
+    @Test
+    public void updateTest() {
+        Vote expected = service.get(1, 1001);
+        expected.setRestaurant(restaurant102);
+        service.update(expected, 1001, 101);
+        assertMatch(service.get(1, 1001), expected);
+    }
+
+    @Test
+    public void deleteTest() {
+        service.delete(0, 1000);
+        assertMatch(service.getAllByUser(user1000.getId()), Collections.singletonList(vote2));
     }
 
     @Test
     public void makeNewTest() {
-        Vote vote = new Vote(null, LocalDateTime.of(2017, Month.DECEMBER, 4, 10, 0, 0), user1000, restaurant100);
-        service.make(vote, 1000, 100);
-        assertMatch(service.get(LocalDateTime.of(2017, Month.DECEMBER, 4, 10, 0, 0), vote.getUser().getId()), vote);
+        Vote vote = new Vote(null, LocalDateTime.of(2017, Month.DECEMBER, 5, 10, 0, 0), null, null);
+        Vote created = service.make(vote, 1000, 100);
+        assertMatch(service.getAllByUser(1000),  created, vote2, vote0);
     }
 
     @Test
@@ -35,9 +51,5 @@ public class VotingServiceTest extends AbstractServiceTest {
         assertMatch(service.getAllByUser(1000), vote2, vote0);
     }
 
-    @Test
-    public void deleteTest() {
-        service.delete( LocalDateTime.of(2017, Month.DECEMBER, 3, 10, 0, 0), user1000.getId());
-        assertMatch(service.getAllByUser(user1000.getId()), vote2);
-    }
+
 }

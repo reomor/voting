@@ -42,12 +42,12 @@ public abstract class AbstractRestaurantController {
     }
 
     public Restaurant getWithMenuByDate(int restaurantId, LocalDate date) {
-        log.info("");
+        log.info("get Restaurant{} by Date{}", restaurantId, date);
         return service.getWithMenuByDate(restaurantId, date);
     }
 
     public Restaurant getWithMenus(int restaurantId) {
-        log.info("");
+        log.info("get Restaurant{} with menus", restaurantId);
         return service.getWithMenus(restaurantId);
     }
 

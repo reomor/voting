@@ -25,6 +25,7 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                // order alphabet from A to Z
                 .andExpect(contentJsonArray(restaurant102, restaurant101, restaurant100));
     }
 }

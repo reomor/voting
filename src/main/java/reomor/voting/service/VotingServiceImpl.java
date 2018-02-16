@@ -37,20 +37,8 @@ public class VotingServiceImpl implements VotingService {
     }
 
     @Override
-    public void delete(LocalDateTime dateTime, int userId) {
-        Assert.notNull(dateTime, "dateTime for delete must not be null");
-        checkNotFoundWithId(repository.delete(dateTime, userId), userId);
-    }
-
-    @Override
     public Vote get(int id, int userId) {
         return repository.get(id, userId);
-    }
-
-    @Override
-    public Vote get(LocalDateTime dateTime, int userId) {
-        Assert.notNull(dateTime, "dateTime for delete must not be null");
-        return checkNotFound(repository.get(dateTime, userId), "dateTime=" + dateTime + " userId=" + userId);
     }
 
     @Override

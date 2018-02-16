@@ -13,11 +13,7 @@ public interface VotingService {
 
     void delete(int id, int userId);
 
-    void delete(LocalDateTime dateTime, int userId);
-
     Vote get(int id, int userId);
-
-    Vote get(LocalDateTime dateTime, int userId);
 
     List<Vote> getAllByUser(int userId);
 }
