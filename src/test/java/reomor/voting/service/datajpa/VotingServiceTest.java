@@ -43,6 +43,7 @@ public class VotingServiceTest extends AbstractServiceTest {
     public void makeNewTest() {
         Vote vote = new Vote(null, LocalDateTime.of(2017, Month.DECEMBER, 5, 10, 0, 0), null, null);
         Vote created = service.make(vote, 1000, 100);
+        System.out.println("+++ compare actual and expected +++");
         assertMatch(service.getAllByUser(1000),  created, vote2, vote0);
     }
 

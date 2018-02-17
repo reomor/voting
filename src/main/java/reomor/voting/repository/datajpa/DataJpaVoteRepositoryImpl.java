@@ -32,11 +32,11 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
         if (vote.isNew() && existed != null) {
             vote.setId(existed.getId());
         }
-
+/*
         if (!crudUserRepository.findById(userId).isPresent() || !crudRestaurantRepository.findById(restaurantId).isPresent()) {
             return null;
         }
-
+//*/
         vote.setUser(crudUserRepository.getOne(userId));
         vote.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
 

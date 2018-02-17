@@ -30,6 +30,8 @@
           p:username="${database.username}"
           p:password="${database.password}"/>
 
+    <bean id="hibernateStatisticsInterceptor" class="reomor.voting.web.interceptor.HibernateStatisticsInterceptor"/>
+
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
           p:packagesToScan="reomor.voting.**.model">
@@ -44,6 +46,8 @@
                 <entry key="#{T(org.hibernate.cache.jcache.JCacheRegionFactory).PROVIDER}" value="org.ehcache.jsr107.EhcacheCachingProvider"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>
                 <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/>
+
+                <entry key="hibernate.ejb.interceptor" value-ref="hibernateStatisticsInterceptor"/>
 
             </map>
         </property>

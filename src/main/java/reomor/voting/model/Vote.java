@@ -71,8 +71,8 @@ public class Vote extends BaseEntity {
         return "Vote{" +
                 "id=" + id +
                 ", dateTime=" + dateTime +
-                ", user=" + user +
-                ", restaurant=" + restaurant +
+                //", user=" + user +
+                //", restaurant=" + restaurant +
                 '}';
     }
 }
