@@ -60,4 +60,13 @@ public class MenuTo {
                 .map(Dish::new)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String toString() {
+        return "MenuTo{" +
+                "id=" + id +
+                ", date=" + date +
+                ", dishes=" + dishes +
+                '}';
+    }
 }
