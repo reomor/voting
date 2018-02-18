@@ -6,6 +6,11 @@ public class VoteConstraintsUtils {
     private static LocalTime edge = LocalTime.of(11, 0, 0);
 
     public static boolean isLateTime(LocalTime localTime) {
-        return localTime.isAfter(edge);
+        return false;
+        //return localTime.isAfter(edge);
+    }
+
+    public static void setEdgeForTesting() {
+        edge = LocalTime.MAX;
     }
 }

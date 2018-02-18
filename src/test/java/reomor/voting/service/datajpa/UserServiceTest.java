@@ -43,12 +43,10 @@ public class UserServiceTest extends AbstractServiceTest {
 
     @Test
     public void updateTest() {
-        /*
         User updated = new User(user1000);
         updated.setEnabled(false);
-        service.update(updated);
+        service.update(updated, updated.getId());
         assertMatch(service.get(updated.getId()), updated);
-        //*/
     }
 
     @Test
