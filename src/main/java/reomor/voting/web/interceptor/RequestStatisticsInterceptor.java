@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+//http://knes1.github.io/blog/2015/2015-07-08-counting-queries-per-request-with-hibernate-and-spring.html
+
 public class RequestStatisticsInterceptor implements AsyncHandlerInterceptor {
 
     private ThreadLocal<Long> time = new ThreadLocal<>();

@@ -79,8 +79,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Menu addMenu(MenuTo menuTo, int restaurantId) {
         Assert.notNull(menuTo, "menuTo must not be null");
-        final Menu menu = repository.addMenu(menuTo, restaurantId);
-        return checkNotFound(menu, "add Menu by menuTo=" + menuTo);
+        return checkNotFound(repository.addMenu(menuTo, restaurantId), "add Menu by menuTo=" + menuTo);
     }
 
     @CacheEvict(value = "menus", allEntries = true)

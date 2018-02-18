@@ -3,6 +3,7 @@ package reomor.voting.repository.datajpa;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import reomor.voting.model.Dish;
@@ -58,21 +59,25 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     @Transactional
+    @Modifying(clearAutomatically = true)
     public Menu addMenu(MenuTo menuTo, int restaurantId) {
-        if (!menuTo.isNew() && getMenu(menuTo.getId()) == null) {
+        Menu existed = null;
+
+        if (!menuTo.isNew() && (existed = getMenu(menuTo.getId())) == null) {
             return null;
         }
 
         Menu menuNew;
+
         if (menuTo.isNew()) {
             menuNew = new Menu();
         } else {
-            menuNew = getMenu(menuTo.getId());
-            crudDishRepository.deleteByMenuId(menuTo.getId());
+            menuNew = existed;
         }
 
         menuNew.setDate(menuTo.getDate());
         menuNew.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+
         for (Dish dish : menuTo.getDishes()) {
             dish.setId(null);
             dish.setMenu(menuNew);
@@ -81,6 +86,7 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
 
         // https://stackoverflow.com/questions/19928568/hibernate-best-practice-to-pull-all-lazy-collections
         Hibernate.initialize(menuNew.getRestaurant());
+
         return crudMenuRepository.save(menuNew);
     }
 

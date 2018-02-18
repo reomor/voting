@@ -13,12 +13,11 @@ import java.util.stream.Collectors;
 public class MenuTo {
     private Integer id;
     private LocalDate date;
-    private List<Dish> dishes;
+    private List<Dish> dishes = Collections.emptyList();
 
     public MenuTo() {
         this.id = null;
         this.date = null;
-        dishes = Collections.emptyList();
     }
 
     public MenuTo(Integer id, LocalDate date, List<Dish> dishes) {
@@ -52,13 +51,11 @@ public class MenuTo {
     }
 
     public void setDishes(List<Dish> dishes) {
-        this.dishes =  Collections.emptyList();
-        if (CollectionUtils.isEmpty(dishes)) {
-            return;
+        if (!CollectionUtils.isEmpty(dishes)) {
+            this.dishes = dishes.stream()
+                    .map(Dish::new)
+                    .collect(Collectors.toList());
         }
-        this.dishes = dishes.stream()
-                .map(Dish::new)
-                .collect(Collectors.toList());
     }
 
     @Override

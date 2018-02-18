@@ -31,6 +31,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         cacheManager.getCache("menus").clear();
         cacheManager.getCache("restaurants").clear();
     }
@@ -88,8 +89,8 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     /* MENU */
     @Test
     public void getMenuTest() throws Exception {
-        Menu actual = service.getMenu(1);
-        reomor.voting.MenuTestData.assertMatch(actual, menu1);
+        Menu actual = service.getMenu(2);
+        reomor.voting.MenuTestData.assertMatch(actual, menu2);
     }
 
     @Test
@@ -103,10 +104,10 @@ public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Test
     public void updateMenuTest() throws Exception {
-        Menu update = service.getMenu(1);
+        Menu update = service.getMenu(2);
         update.setRestaurant(restaurant102);
         service.updateMenu(asMenuTo(update), update.getRestaurant().getId(), update.getId());
-        Menu actual = service.getMenu(1);
+        Menu actual = service.getMenu(2);
         assertMatch(actual, update);
     }
 
@@ -136,6 +137,7 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     @Test(expected = NotFoundException.class)
     public void testGetMenuByRestaurantAndDateException() throws Exception {
         final Menu actual = service.getMenuByRestaurantAndDate(1000, LocalDate.of(2017, Month.DECEMBER, 4));
+        // exception
     }
 
     @Test

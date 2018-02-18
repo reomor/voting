@@ -1,6 +1,5 @@
 package reomor.voting.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -38,11 +37,12 @@ public class Menu extends BaseEntity {
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     // http://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
     @JsonManagedReference
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @BatchSize(size = 200)
-    private List<Dish> dishes;
+    private List<Dish> dishes = null;
 
-    public Menu() {}
+    public Menu() {
+    }
 
     public Menu(Menu menu) {
         super(menu.id);
@@ -79,6 +79,15 @@ public class Menu extends BaseEntity {
     }
 
     public void setDishes(Collection<Dish> dishes) {
-        this.dishes = CollectionUtils.isEmpty(dishes) ? Collections.emptyList() : new ArrayList<Dish>(dishes);
+        if (this.dishes == null) {
+            if (CollectionUtils.isEmpty(dishes)) {
+                this.dishes = Collections.emptyList();
+            } else {
+                this.dishes = new ArrayList<>(dishes);
+            }
+        } else {
+            this.dishes.clear();
+            this.dishes.addAll(dishes);
+        }
     }
 }

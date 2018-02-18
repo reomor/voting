@@ -9,7 +9,8 @@ import reomor.voting.model.Dish;
 
 @Transactional(readOnly = true)
 public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
-    @Modifying
+
+    @Modifying(clearAutomatically = true)
     @Transactional
     @Query("DELETE FROM Dish d WHERE d.menu.id=:id")
     int deleteByMenuId(@Param("id") int menuId);
