@@ -1,6 +1,7 @@
 package reomor.voting.web.restaurant;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @DeleteMapping(value = "/admin/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteRestaurant(@PathVariable("id") int id) {
         super.delete(id);
     }

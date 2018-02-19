@@ -1,5 +1,6 @@
 package reomor.voting.repository.datajpa;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
     @Override
     @Transactional
     public Vote make(Vote vote, int userId, int restaurantId) {
-        Vote existed = getByDateAndUser(vote.getLocalDate(), userId);
+        Vote existed = getByDateAndUser(vote.getLocalDate(), userId, restaurantId);
 
         if (vote.isNew() && existed != null) {
             vote.setId(existed.getId());
@@ -39,6 +40,8 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
 //*/
         vote.setUser(crudUserRepository.getOne(userId));
         vote.setRestaurant(crudRestaurantRepository.getOne(restaurantId));
+
+        //Hibernate.initialize(vote.getRestaurant());
 
         return crudVoteRepository.save(vote);
     }
@@ -68,17 +71,17 @@ public class DataJpaVoteRepositoryImpl implements VoteRepository {
         return crudVoteRepository.getAllByUser(userId);
     }
 
-    private Vote getByDateAndUser(LocalDate date, int userId) {
+    private Vote getByDateAndUser(LocalDate date, int userId, int restaurantId) {
         LocalDateTime startDateTime = LocalDateTime.of(date, LocalTime.MIN);
         LocalDateTime endDateTime = LocalDateTime.of(date, LocalTime.MAX);
-        final List<Vote> between = crudVoteRepository.getBetween(startDateTime, endDateTime);
+        final List<Vote> between = crudVoteRepository.getBetween(startDateTime, endDateTime, restaurantId);
 
         final List<Vote> votes = between.stream()
                 .filter(vote -> vote.getUser().getId() == userId)
                 .collect(Collectors.toList());
 
         if (votes.size() >= 2) {
-            throw  new RuntimeException("more than one vote per user=" + userId + "for day=" + date);
+            throw  new RuntimeException("more than one vote per user=" + userId + " in base for day=" + date);
         }
 
         return votes.size() == 0 ? null : votes.get(0);

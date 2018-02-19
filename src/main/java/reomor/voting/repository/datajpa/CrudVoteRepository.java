@@ -1,5 +1,6 @@
 package reomor.voting.repository.datajpa;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,6 +37,6 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     List<Vote> getAllByUser(@Param("userId") int userId);
 
     @SuppressWarnings("JpaInspection")
-    @Query("SELECT v FROM Vote v WHERE v.dateTime >= :start AND v.dateTime <= :finish")
-    List<Vote> getBetween(@Param("start") LocalDateTime start, @Param("finish") LocalDateTime end);
+    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.dateTime >= :start AND v.dateTime <= :finish AND v.restaurant.id=:restaurantId")
+    List<Vote> getBetween(@Param("start") LocalDateTime start, @Param("finish") LocalDateTime end, @Param("restaurantId") int restaurantId);
 }
