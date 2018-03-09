@@ -21,6 +21,13 @@ public class RequestStatisticsInterceptor implements AsyncHandlerInterceptor {
     @Autowired
     private HibernateStatisticsInterceptor statisticsInterceptor;
 
+    /*
+    @Autowired
+    public RequestStatisticsInterceptor(HibernateStatisticsInterceptor statisticsInterceptor) {
+        this.statisticsInterceptor = statisticsInterceptor;
+    }
+    //*/
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         time.set(System.currentTimeMillis());

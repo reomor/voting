@@ -3,16 +3,12 @@ package reomor.voting.web.restaurant;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import reomor.voting.model.Menu;
 import reomor.voting.model.Restaurant;
 import reomor.voting.service.RestaurantService;
 import reomor.voting.web.AbstractControllerTest;
-
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -20,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static reomor.voting.RestaurantTestData.*;
 import static reomor.voting.TestUtils.*;
 import static reomor.voting.UserTestData.*;
+import static reomor.voting.MenuTestData.*;
 import static reomor.voting.util.JsonUtil.writeValue;
 
 public class RestaurantRestControllerTest extends AbstractControllerTest {
@@ -84,7 +81,7 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testPostUpdateRestaurant() throws Exception {
+    public void testPutUpdateRestaurant() throws Exception {
         Restaurant updated = service.get(102);
         updated.setName("Mollie's");
 
@@ -98,4 +95,24 @@ public class RestaurantRestControllerTest extends AbstractControllerTest {
     }
 
     /* MENUS */
+    @Test
+    public void testGetAllMenusByRestaurant() throws Exception {
+        Restaurant restaurant = restaurant101;
+        mockMvc.perform(get(REST_URL + "/" + restaurant.getId() + "/" + "menus"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJsonArray(menu3, menu1));
+    }
+
+    @Test
+    public void testGetMenuById() throws Exception {
+        Restaurant restaurant = restaurant100;
+        Menu menu = menu2;
+        mockMvc.perform(get(REST_URL + "/" + restaurant.getId() + "/menus/" + menu.getId()))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson(menu));
+    }
 }
