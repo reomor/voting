@@ -35,7 +35,8 @@ public class VoteRestController extends AbstractVoteController {
     public ResponseEntity<?> makeVote(@PathVariable("restaurantId") int restaurantId) {
 
         if (isLateTime(LocalTime.now())) {
-            return new ResponseEntity<CustomErrorType>(new CustomErrorType("it's too late to vote"), HttpStatus.BAD_REQUEST);
+            //return new ResponseEntity<CustomErrorType>(new CustomErrorType("it's too late to vote"), HttpStatus.BAD_REQUEST);
+            throw new RuntimeException("it's too late to vote");
         }
 
         Vote vote = new Vote();
