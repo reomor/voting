@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reomor.voting.model.Vote;
 import reomor.voting.util.exception.CustomErrorType;
+import reomor.voting.util.exception.TimeToVoteLeftException;
 
 import java.net.URI;
 import java.time.LocalDateTime;
@@ -36,7 +37,7 @@ public class VoteRestController extends AbstractVoteController {
 
         if (isLateTime(LocalTime.now())) {
             //return new ResponseEntity<CustomErrorType>(new CustomErrorType("it's too late to vote"), HttpStatus.BAD_REQUEST);
-            throw new RuntimeException("it's too late to vote");
+            throw new TimeToVoteLeftException("it's too late to vote");
         }
 
         Vote vote = new Vote();

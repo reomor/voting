@@ -14,6 +14,7 @@ import reomor.voting.util.ValidationUtil;
 import reomor.voting.util.exception.ErrorInfo;
 import reomor.voting.util.exception.ErrorType;
 import reomor.voting.util.exception.NotFoundException;
+import reomor.voting.util.exception.TimeToVoteLeftException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,6 +34,12 @@ public class ExceptionInfoHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
         return logAndGetErrorInfo(req, e, true, ErrorType.DATA_ERROR);
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(TimeToVoteLeftException.class)
+    public ErrorInfo lateToVote(HttpServletRequest req, Exception e) {
+        return logAndGetErrorInfo(req, e, true, ErrorType.TIME_TO_VOTE_LEFT);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
